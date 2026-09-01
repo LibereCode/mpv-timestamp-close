@@ -79,19 +79,19 @@ function M.lua2json(tbl)
     return utils.format_json(tbl)
 end
 
-local json_path = "/tmp/mpv-timestamp-close.json"
-os.execute("touch " .. json_path) -- I am lazy
-local json_tbl = M.json2lua(M.readFile(json_path)) or {}
-local filename = mp.get_property_native("filename") or "file"
 
 ---Initial time
 mp.register_event("file-loaded", function()
-    mp.commandv("seek", json_tbl[filename] or 0)
+    M.json_path = "/tmp/mpv-timestamp-close.json"
+    os.execute("touch " .. M.json_path) -- I am lazy
+    M.json_tbl = M.json2lua(M.readFile(M.json_path)) or {}
+    M.path = mp.get_property_native("path") or "idk"
+    mp.commandv("seek", M.json_tbl[M.path] or 0)
 end)
 
 mp.add_key_binding("q", "shutdown_timestamp", function()
-    json_tbl[filename] = mp.get_property_native("time-pos")
-    local json_str = M.lua2json(json_tbl)
-    M.writeFile(json_path, json_str)
+    M.json_tbl[M.path] = mp.get_property_native("time-pos")
+    local json_str = M.lua2json(M.json_tbl)
+    M.writeFile(M.json_path, json_str)
     mp.command("quit")
 end)
