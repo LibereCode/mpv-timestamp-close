@@ -9,6 +9,8 @@ stdenv.mkDerivation rec {
   pname = "mpv-timestamp-close";
   version = "2026-09-01"; # TODO: v0.0.X
 
+  src = ../.;
+
   installPhase = ''
     mkdir -p ${out_path}
     install -Dm755 ${pname}.lua ${out_path}/${pname}.lua

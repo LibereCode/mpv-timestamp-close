@@ -12,7 +12,7 @@
       ...
     }:
     {
-      packages.mpv-timestamp-close = pkgs.callPackage ./nix/package.nix { };
+      packages.mpv-timestamp-close = pkgs.callPackage ./package.nix { };
       packages.default = self'.packages.mpv-timestamp-close;
     };
 }
