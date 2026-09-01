@@ -1,19 +1,13 @@
 {
   stdenv,
-  fuse,
   lib,
 }:
 let
   out_path = "$out/share/mpv/scripts";
 in
 stdenv.mkDerivation rec {
-  pname = "mpv-mount-play";
-  version = "dev"; # TODO: v0.0.X
-
-  patchPhase = ''
-    substituteInPlace mpv-mount-play.lua \
-      --replace '"fusermount"' '"${fuse}/bin/fusermount"'
-  '';
+  pname = "mpv-timestamp-close";
+  version = "2026-09-01"; # TODO: v0.0.X
 
   installPhase = ''
     mkdir -p ${out_path}
@@ -21,7 +15,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "If ISO/image, mount. If directory, generate playlist file and play it.";
+    description = "Tiny script to keep track of video-close-timetamps";
     platforms = lib.platforms.linux;
     license = [ lib.licenses.eupl12 ];
   };

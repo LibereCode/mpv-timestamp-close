@@ -12,7 +12,7 @@
       ...
     }:
     {
-      packages.mpv-CHANGE_ME = pkgs.callPackage ./nix/package.nix { };
-      packages.default = self'.packages.mpv-mount-play;
+      packages.mpv-timestamp-close = pkgs.callPackage ./nix/package.nix { };
+      packages.default = self'.packages.mpv-timestamp-close;
     };
 }

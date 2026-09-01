@@ -1,8 +1,6 @@
 {
   description = ''
-    CHANGE ME
-    ABOUT THE MPV ADDOND.
-    BLA BLA BLA
+      Tiny script to keep track of video-close-timetamps
   '';
 
   inputs = {
