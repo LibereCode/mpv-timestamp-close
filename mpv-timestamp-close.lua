@@ -47,28 +47,8 @@ local options = require("mp.options")
 --     end
 -- end
 -- mp.observe_property("pause", "bool", on_pause_change)
--- ----
--- function my_fn(event)
---     print("start of playback!")
--- end
--- mp.register_event("file-loaded", my_fn)
 
 local M = { time = {} }
-
----TEST DEBUG
-local function print_time()
-    local current = M.time.pos()
-    M.time.last = M.time.current or current
-    M.time.current = current
-    print("time_since_START: ", M.time.current)
-    print("time_since_LAST", M.time.current - M.time.last)
-end
-mp.add_key_binding("d", print_time)
-
----@return integer? time-pos current time of video progress.
-function M.time.pos()
-    return mp.get_property_native("time-pos")
-end
 
 ---Read a file from `filepath`, and return content as a string
 ---@param filepath string
@@ -99,24 +79,19 @@ function M.lua2json(tbl)
     return utils.format_json(tbl)
 end
 
+local json_path = "/tmp/mpv-timestamp-close.json"
+os.execute("touch " .. json_path) -- I am lazy
+local json_tbl = M.json2lua(M.readFile(json_path)) or {}
+local filename = mp.get_property_native("filename") or "file"
+
 ---Initial time
 mp.register_event("file-loaded", function()
-    print("file-loaded:")
-    local test = M.readFile("./test.json")
-    print("TEST read ./test.json:")
-    print("<" .. test .. ">")
-    local test_parse = M.json2lua(test)
-    print("TEST parsed to lua:")
-    print("<")
-    for k, v in pairs(test_parse) do
-        print(k, "=", v)
-    end
-    print(">")
-    test_parse.ticking = os.time()
-    print("TEST back to json:")
-    local test_parse_back = M.lua2json(test_parse)
-    print("<" .. test_parse_back .. ">")
-    print("TEST: write it")
-    M.writeFile("./test.json", test_parse_back)
-    print_time()
+    mp.commandv("seek", json_tbl[filename] or 0)
+end)
+
+mp.add_key_binding("q", "shutdown_timestamp", function()
+    json_tbl[filename] = mp.get_property_native("time-pos")
+    local json_str = M.lua2json(json_tbl)
+    M.writeFile(json_path, json_str)
+    mp.command("quit")
 end)
