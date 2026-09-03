@@ -1,6 +1,6 @@
 {
   description = ''
-      Tiny script to keep track of video-close-timetamps
+    Tiny script to keep track of video-close-timetamps
   '';
 
   inputs = {

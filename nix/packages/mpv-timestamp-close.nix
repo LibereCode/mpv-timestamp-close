@@ -12,7 +12,7 @@ mpvScripts.buildLua {
   pname = "mpv-" + base_name;
   version = "0.0.2";
 
-  src = ../.;
+  src = ../../.;
 
   installPhase = ''
     mkdir -p ${out_path}

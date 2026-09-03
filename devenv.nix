@@ -14,6 +14,7 @@
   packages = with pkgs; [
     git
     mpv
+    jqp
   ];
 
   # https://devenv.sh/languages/
