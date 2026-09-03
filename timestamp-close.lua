@@ -1,3 +1,7 @@
+---Copyright (c) 2026 LibereCode. All Rights Reserved.
+---
+---Version: 0.0.2
+
 -- show the name of current playing file
 -- press SHIFT+ENTER to call the function
 
@@ -78,7 +82,6 @@ end
 function M.lua2json(tbl)
     return utils.format_json(tbl)
 end
-
 
 ---Initial time
 mp.register_event("file-loaded", function()

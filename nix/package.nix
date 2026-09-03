@@ -5,17 +5,18 @@
 }:
 let
   out_path = "$out/share/mpv/scripts";
+  base_name = "timestamp-close";
 in
 # stdenv.mkDerivation rec {
-mpvScripts.buildLua rec {
-  pname = "mpv-timestamp-close";
-  version = "2026-09-01"; # TODO: v0.0.X
+mpvScripts.buildLua {
+  pname = "mpv-" + base_name;
+  version = "0.0.2";
 
   src = ../.;
 
   installPhase = ''
     mkdir -p ${out_path}
-    install -Dm755 ${pname}.lua ${out_path}/${pname}.lua
+    install -Dm755 ${base_name}.lua ${out_path}/${base_name}.lua
   '';
 
   meta = {
