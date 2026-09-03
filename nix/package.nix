@@ -1,11 +1,13 @@
 {
-  stdenv,
+  # stdenv,
   lib,
+  mpvScripts,
 }:
 let
   out_path = "$out/share/mpv/scripts";
 in
-stdenv.mkDerivation rec {
+# stdenv.mkDerivation rec {
+mpvScripts.buildLua rec {
   pname = "mpv-timestamp-close";
   version = "2026-09-01"; # TODO: v0.0.X
 

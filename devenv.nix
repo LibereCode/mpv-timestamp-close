@@ -50,7 +50,7 @@
     git --version | grep --color=auto "${pkgs.git.version}"
   '';
 
-  scripts.run-plugin.exec = /* sh */ ''
+  scripts.mpv-test.exec = /* sh */ ''
     echo "''${@}"
     mpv --script=${config.git.root}/mpv-timestamp-close.lua "''${@}"
   '';
